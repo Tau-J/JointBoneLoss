@@ -5,7 +5,7 @@ I experiment it on my own pose estimation tasks(both of heatmap-based and regres
 
 Here's a training log of my experiment about wi/wo boneloss on heatmap-based pose estimation model.
 
-![](.\log.jpg)
+![](https://github.com/674106399/JointBoneLoss/blob/main/log.jpg)
 
 I'd like to share it with you guys, enjoy~
 
