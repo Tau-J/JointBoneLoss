@@ -13,7 +13,12 @@ class JointBoneLoss(nn.Module):
         self.id_j = id_j
 
     def forward(self, joint_out, joint_gt):
-        J = torch.norm(joint_out[:,self.id_i,:] - joint_out[:,self.id_j,:], p=2, dim=-1, keepdim=False)
-        Y = torch.norm(joint_gt[:,self.id_i,:] - joint_gt[:,self.id_j,:], p=2, dim=-1, keepdim=False)
+        if len(joint_out) == 4: # b, n, h, w
+            calc_dim = [2, 3]
+        elif len(joint_out) == 3:# b, n, 2   b, n, 3
+            calc_dim = -1
+        
+        J = torch.norm(joint_out[:,self.id_i,:] - joint_out[:,self.id_j,:], p=2, dim=calc_dim, keepdim=False)
+        Y = torch.norm(joint_gt[:,self.id_i,:] - joint_gt[:,self.id_j,:], p=2, dim=calc_dim, keepdim=False)
         loss = torch.abs(J-Y)
         return loss.mean()
